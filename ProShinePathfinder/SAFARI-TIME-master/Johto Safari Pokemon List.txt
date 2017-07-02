@@ -1,0 +1,93 @@
+
+
+	-SAFARI JOHTO GRASS AND SWAMP ZONE
+
+Abra - Land - Morning / Day / Night
+Chansey - Land - Morning / Day / Night
+Chikorita - Land - Morning / Day / Night
+Ducklett - Land - Night
+Gastly - Land - Night
+Girafarig - Land - Morning / Day / Night
+Haunter - Land - Night
+Lickitung - Land - Morning / Day / Night
+Mr Mime - Land - Morning / Day / Night
+Murkrow - Land - Night
+Oddish - Land - Morning / Night
+Politoed - Land - Morning / Day / Night
+Psyduck - Land - Morning / Day / Night
+Seedot - Land - Morning / Day / Night
+Skiploom - Land - Morning / Day
+Smeargle - Land - Morning / Day
+Sunkern - Land - Day
+Surskit - Land - Morning / Day / Night
+Wooper - Land - Morning / Night
+
+Ducklett - Surfing - Night
+Horsea - Surfing - Morning / Day / Night
+Krabby - Surfing - Morning / Day / Night
+Magikarp - Surfing - Morning / Day / Night
+Marill - Surfing - Morning / Day / Night
+Poliwag - Surfing - Morning / Night
+Poliwhirl - Surfing - Night
+
+
+
+	-SAFARI JOHTO MOUNTAIN ZONE
+
+Clefairy - Land - Morning / Night
+Cyndaquil - Land - Morning / Day
+Fearow - Land - Morning / Day
+Graveler - Land - Morning / Day / Night
+Magmar - Land - Day
+Magnemite - Land - Morning / Day / Night
+Magneton - Land - Morning / Day / Night
+Mankey - Land - Morning / Day / Night
+Onix - Land - Morning / Day / Night
+Slugma - Land - Morning / Day / Night
+Wobbuffet - Land - Morning / Day / Night
+Zubat - Land - Night
+
+
+
+	
+	-SAFARI JOHTO SNOW ZONE
+
+Cubchoo- Land - Morning / Day / Night       -MEMBERSHIP
+Delibird- Land - Night
+Jynx- Land - Morning / Day / Night
+Seel - Land - Morning / Day / Night
+Sneasel - Land - Night
+Snorunt - Land - Night
+Swinub - Land - Morning / Day / Night
+
+Dewgong - Surfing - Morning / Day / Night
+Horsea - Surfing - Morning / Day / Night
+Lapras - Surfing - Day      -MEMBERSHIP
+Psyduck - Surfing - Morning / Day / Night
+Seadra - Surfing - Morning / Day / Night
+Seel - Surfing - Morning / Day / Night
+Spheal - Surfing - Morning / Day / Night
+
+Shellder - Fishing - Morning / Day / Night
+
+
+
+
+	-SAFARI JOHTO WET ZONE
+
+Tympole - Land - Morning / Day / Night      -MEMBERSHIP  
+Poliwag - Land - Night
+Slowpoke - Land - Morning / Day / Night
+Wingull - Land - Morning / Day / Night
+Wooper - Land - Morning / Night
+
+Goldeen - Surfing - Morning / Day / Night
+Horsea - Surfing - Morning / Day / Night
+Totodile - Surfing - Night
+
+Chinchou - Fishing - Morning / Day / Night
+Corphish - Fishing - Morning / Day / Night
+Feebas - Fishing - Morning / Day / Night
+Magikarp - Fishing - Morning / Day / Night
+Remoraid - Fishing - Day
+Staryu - Fishing - Night

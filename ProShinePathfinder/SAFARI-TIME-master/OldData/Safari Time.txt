@@ -1,0 +1,118 @@
+name = "Safari Time"
+author = "redskhie"
+description = [[This script will catch your desired Pokemons at Kanto Safari]]
+
+function onStart()
+    
+    startime = os.time()
+
+    shinyCounter = 0
+
+    eeveecounter = 0
+    scythercounter = 0
+    pinsircounter = 0
+    bulbacounter = 0
+    chanseycounter = 0
+    rhycounter = 0
+    kangascounter = 0
+    umbreoncounter = 0
+    starlycounter = 0
+    pokecenterCounter = 0
+    wildCounter = 0
+    
+    startingMoney = getMoney()
+
+    log("-----------------------------------------------------------")
+        log("|---- We are now Commencing the Catch Routine ----|")
+        log("-----------------------------------------------------------")
+
+    if huntEeveeRhyhorn then
+        log("-------- MULTI-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Eevee at Morning and Day ~ Hunting Rhyhorn at Night")
+        log("--------------------------------------")
+    elseif huntEeveeBulba then
+        log("-------- MULTI-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Eevee at Morning and Day ~ Hunting Bulbasaur at Night")
+        log("--------------------------------------")
+    elseif huntEeveeChansey then
+        log("-------- MULTI-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Eevee at Morning and Day ~ Hunting Chansey at Night")
+        log("--------------------------------------")
+    elseif huntEeveeScytherPinsir then
+        log("-------- MULTI-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Eevee at Morning and Day ~ Hunting Scyther and Pinsir at Night")
+        log("--------------------------------------")
+    elseif huntEeveeUmbreon then
+        log("-------- MULTI-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Eevee at Morning and Day ~ Hunting Umbreon and Pinsir at Night")
+        log("--------------------------------------")
+    elseif huntStarlyUmbreon then
+        log("-------- MULTI-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Starly at Morning and Day ~ Hunting Umbreon at Night")
+        log("--------------------------------------")
+    elseif huntEeveeMarill then
+        log("-------- MULTI-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Eevee at Morning and Day ~ Hunting Marill at Night")
+        log("--------------------------------------")
+    end
+
+    if huntEevee then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Eevee at Safari Area 3")
+        log("--------------------------------------")
+    elseif huntScyther then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Scyther at Safari Area 1")
+        log("--------------------------------------")
+    elseif huntPinsir then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Pinsir at Safari Area 1")
+        log("--------------------------------------")
+    elseif huntBulba then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Bulbasaur at Safari Area 2")
+        log("--------------------------------------")
+    elseif huntChansey then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Chansey at Safari Area 2")
+        log("--------------------------------------")
+    elseif huntRhyhorn then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Rhyhorn at Safari Area 2")
+        log("--------------------------------------")
+    elseif huntKanga then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Kangaskhan at Safari Area 1")
+        log("--------------------------------------")
+    elseif huntChanseyBulba then
+        log("-------- SINGLE-CATCHING STARTED --------")
+        log("Script Info ~~> Hunting Chansey and Bulbasaur at Safari Area 2")
+        log("--------------------------------------")
+
+    end
+    if moneyfarm then
+        if cCave then
+            log("~Farming money at Cerulean Cave 1F when money is less than "..minmoney.." pokedollars")
+            log("~Continue hunting when money reached to "..maxmoney.."+ pokedollars")
+            log("--------------------------------------")
+        elseif sFoam then
+            log("~Farming money at Seafoam B4F when money is less than "..minmoney.." pokedollars")
+            log("~Continue hunting when money reached to "..maxmoney.."+ pokedollars")
+            log("--------------------------------------")
+        end
+    end
+    if huntandfarm then
+        log("Killing all encountered pokes while hunting your desired pokes")
+        log("--------------------------------------")
+    end
+    pokeballCounter = 0
+
+end
+function onDialogMessage(pokecenter)
+    if stringContains(pokecenter, "Would you like me to heal your Pokemon?") then
+        pokecenterCounter = pokecenterCounter + 1
+        if usingLogs then
+            log("Info ~ Times in Pokecenter: " .. pokecenterCounter)
+        end
+    end
+end
