@@ -36,7 +36,7 @@ local TargetLvl          = 35 -- Hasta que nivel se desea subir
 -------------------------------------------------------------------------
 --------- Configuración para Catcher ---------
 local PokemonList         = {"Squirtle","Charmander","Budew","Magmar","Treecko","Bulbasaur","Kangaskhan","Chansey",
-                                "Tangela","Chikorita"} --Lista de Pokemon a Capturar
+                                "Tangela","Chikorita","Turtwig","Sewaddle","Fletchling","Trevenant","Pansage"} --Lista de Pokemon a Capturar
 local PokemonHPCatch      = 50   --Cantidad de vida para atrapar
 local PokemonCatched      = 0   --Cantidad de Pokemon atrapados
 -------------------------------------------------------------------------
