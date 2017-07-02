@@ -295,7 +295,7 @@ function  CanAttack(pokemonIndex)
     if(getPokemonHealthPercent(pokemonIndex)>=HPtoRetreat) then
         for i=1,4 do
             moveName=getPokemonMoveName(pokemonIndex, i)
-            if moveName ~= "False Swipe" and getPokemonMovePower(pokemonIndex,i)>0 and getRemainingPowerPoints(pokemonIndex, moveName) >0 then
+            if moveName ~= "False Swipe" and getPokemonMovePower(pokemonIndex,i)>1 and getRemainingPowerPoints(pokemonIndex, moveName) >0 then
                 _canAttack=true
                 break   
             end
