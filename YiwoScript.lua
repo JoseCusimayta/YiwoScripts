@@ -49,6 +49,7 @@ local AmmountEV           = {250,0,0,0,211,0}
 
 -------------- Variables a no tocar -------------------------------------
  local PokemonNameSeen    ={"Lista de Pokemon Vistos"}
+ local canChange		  =true
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 
@@ -245,6 +246,9 @@ function onBattleAction()
 end
 
 function onBattleMessage(message)   
+	if stringContains(message, "You can not switch this Pokemon!") then
+        canChange = false
+    end
     if TableDataAdd(PokemonNameSeen) then 
         table.insert(PokemonNameSeen,getOpponentName())  
     end
@@ -373,10 +377,10 @@ function catchPokemon()
             end
             log("... Objetivo: Capturar a ".. getOpponentName())
         elseif CanAttack(1) then
-            return attack() or sendUsablePokemon() or run() 
-        elseif getActivePokemonNumber()==1 then
-            return sendUsablePokemon() or run()
-        else
+            return attack() or sendUsablePokemon() or run()             
+        elseif getActivePokemonNumber()==1 and canChange then
+            return sendUsablePokemon() or run() or attack()            
+        else        	
             return attack() or sendUsablePokemon() or run() 
         end   
     else
@@ -427,7 +431,6 @@ function  levelerPokemon()
     if((isOpponentShiny() or not isAlreadyCaught()) and HavePokeballs())then
         return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")  or sendUsablePokemon()      
     elseif  getPokemonHealth(getActivePokemonNumber())<=0 then
-        log("... Se murió el Pokemon activo")
         return sendAnyPokemon()
     else
         return attack() or sendUsablePokemon() or run() 
@@ -451,7 +454,7 @@ function CanUsePokemonToShareExp()
 end
 
 function ShareExp()
-    if  getActivePokemonNumber()==1 then
+    if  getActivePokemonNumber()==1 and canChange then
         return sendUsablePokemon() or run() or attack()
     elseif((isOpponentShiny() or not isAlreadyCaught()) and HavePokeballs())then
         return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")  or sendUsablePokemon()
@@ -471,8 +474,10 @@ function OnlyCatch()
                 return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
             end
             log("... Objetivo: Capturar a ".. getOpponentName())        
-        else
+        elseif  canChange  then
             return run() 
+        else
+        	return attack() or sendUsablePokemon() or run() 
         end   
     else
         log("... No hay suficientes Pokeballs")
@@ -505,10 +510,12 @@ function TrainEV()
     elseif isCorrectEV()  then
         log("... EV Correcto a subir. Accion: Debilitar")
         return attack() or sendUsablePokemon() or run() 
+    elseif  canChange  then
+		log("... No es el EV correcto para subir. Accion: Huir")
+        return run() 
     else
-        log("... No es el EV correcto para subir. Accion: Huir")
-        return run() or attack()
-    end 
+    	return attack() or sendUsablePokemon() or run() 
+    end   
 end
 
 -------------------------------------------------------------------------
