@@ -1,15 +1,14 @@
 dofile "YiwoScript.lua"
 
 
---TargetMap         = "Mt. Silver Lower Mountainside"
-TargetMap         = "Route 1"
+--TargetMap    x     = "Mt. Silver Lower Mountainside"
+TargetMap         = "Route 6"
 HuntType          = "Grass"
 HPtoRetreat       = 20
 ListEV           	= {"Attack", "Defense", "SpAttack","SpDefense","Speed","HP"}
-AmmountEV        	= {252,0,0,0,250,0}
+AmmountEV        	= {0,0,252,0,252,0}
 
 function onStart()
-    EvTrainLog()
 end
 
 function onPause()
@@ -17,7 +16,6 @@ function onPause()
 end
 
 function onStop()
-    EvTrainLog()
 end
 
 function onPathAction()
@@ -25,7 +23,11 @@ function onPathAction()
 end
 
 function onBattleAction()
-	TrainEV()
+	if(getOpponentName()=="Abra") then 
+		return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
+	else
+		TrainEV()
+	end
 end
 
 function onBattleMessage(message)   

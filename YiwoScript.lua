@@ -5,36 +5,39 @@ description = [[ A disfrutar del Script!! \(+o+)/!!! ]]
 
   Pathfinder        = require "ProShinePathfinder/Pathfinder/MoveToApp"
 KeepMoves           = {"False Swipe", "Earthquake", "Double-Edge", "Ice Fang", "Thunder Fang", "Fire Fang", "Play Rough", 
-                    "Bite", "Covet", "Low Kick", "Quick Attack", "Ice Punch", "Thunder Punch", "Fire Punch", "Sky Uppercut", 
-                    "Thunderbolt", "Thunder", "Thrash", "Horn Attack", "Poison Jab", "Bone Rush", "Thrash", "Surf",
-                    "Cut", "Rock Smash", "Headbutt","Aerial Ace", "Dig", "Toxic Spikes", "Pin Missile", "Twineedle",
-                    "Leech Seed","Wing Attack" ,"Crunch","Inferno","Take Down","Air Cutter","Poison Fang",
+                    "Bite", "Covet", "Ice Punch", "Thunder Punch", "Fire Punch", "Sky Uppercut", "Wing Attack" ,
+                    "Thunder", "Horn Attack", "Poison Jab", "Bone Rush", "Thrash", "Surf",
+                    "Cut", "Rock Smash", "Headbutt", "Aerial Ace", "Dig", "Toxic Spikes", "Pin Missile", "Twineedle",
+                    "Leech Seed" ,"Crunch","Inferno","Take Down","Air Cutter","Poison Fang",
                     "Mud Bomb", "Petal Dance","Giga Drain","Leaf Blade","Night Slash","X-Scissor","Retaliate","Bonemerang",
-                    "Sludge Bomb", "Gyro Ball","Rollout","Horn Attack","False Swipe","Mirror Shot","Aqua Ring","Metal Sound","Electro Ball",
-                    "Thundershock","Fury Swipes"}
+                    "Sludge Bomb", "Gyro Ball","Rollout","Horn Attack","False Swipe","Mirror Shot","Aqua Ring","Metal Sound",
+                    "Magnitude","Magical Leaf","Hydropump","Petal Dance","Toxic";"Slash","Brine","ThunderBolt","Hurricane",
+                    "Mirror Move","Air Slash"}
 
   PokemonList       = {"Squirtle","Charmander","Budew","Magmar","Treecko","Bulbasaur","Kangaskhan","Chansey",
                                 "Tangela","Chikorita","Turtwig","Sewaddle","Fletchling","Trevenant","Pansage","Surskit",
-                                "Cyndaquil","Lapras","Totodile","Feebas","Mankey"} --Lista de Pokemon a Capturar
+                                "Cyndaquil","Lapras","Totodile","Feebas"} --Lista de Pokemon a Capturar
 
    PokemonListCatch         ={"Lista de Pokemon Capturados"}
    canChange                =true
    PokemonIndexFalseSwipe   = 0
    PokemonIndexNature       = 0
+   PokemonIndexCovet		= 0
    isVulpixHA               =false
    PokemonCatched           =0
+   PokemonTarget			= "Pikachu"
+   CatchPokemon				=false
  ------------------------------------------------------------------------
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
 --------------------------- Funciones generales -------------------------
 function BattleMessageLog(message)
+	 canChange=true
     if stringContains(message, "The sunlight got bright!") then
         isVulpixHA=true
     end
-    if stringContains(message, "You can not switch this Pokemon!") or stringContains(message, "You can not switch this Pokemon!")  then
+    if stringContains(message, "You can not switch this Pokemon!") or stringContains(message, "You can not run away!")  then
         canChange = false
-    else
-        canChange=true
     end    
     if stringContains(message, "Success!") then
         PokemonCatched=PokemonCatched+1
@@ -125,6 +128,27 @@ function findPokemonWithFalseSwipe()
         for move=1,4 do
             if getPokemonMoveName(pokemon,move)=="False Swipe" then
                 PokemonIndexFalseSwipe=pokemon
+                return true
+            end
+        end
+    end
+end
+function findPokemonWithCovet()
+	for pokemon=1,getTeamSize() do
+        for move=1,4 do
+            if getPokemonMoveName(pokemon,move)=="Covet" then
+                PokemonIndexCovet=pokemon
+                return true
+            end
+        end
+    end
+end
+
+function CanUseCovet(pokemonIndex)
+    if getPokemonHealthPercent(pokemonIndex)>=HPtoRetreat then
+        for i=1,4 do
+            moveName=getPokemonMoveName(pokemonIndex,i)
+            if moveName == "Covet" and getRemainingPowerPoints(pokemonIndex, moveName)>0 then
                 return true
             end
         end
@@ -392,14 +416,14 @@ function LevelerPath()
 end
 
 function Leveler()
-    if isOpponentShiny() and HavePokeballs() then
+    if isOpponentShiny() and HavePokeballs() and (isCaptureList() or CatchPokemon) then
         return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")  or sendAnyPokemon() or run()
     elseif not (canChange and CanAttack(1)) then
-        return fatal("No se puede escapar ni atacar")
+        return attack() or sendAnyPokemon() or  fatal("No se puede escapar ni atacar")
     elseif CanAttack(getActivePokemonNumber()) then
-        return attack()
+        return attack() or sendAnyPokemon()
     else
-        return run()
+        return run()or sendAnyPokemon()
     end
 end
 
@@ -429,7 +453,7 @@ function ShareExpPath()
 end
 
 function ShareExp()
-    if((isOpponentShiny() or not isAlreadyCaught()) and HavePokeballs())then
+    if isOpponentShiny() and HavePokeballs() or (isCaptureList() and CatchPokemon)then
         return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendUsablePokemon() or sendAnyPokemon() or run()
     elseif not (canChange and CanAttack(1)) then
         return fatal("No se puede atacar ni cambiar de pokemon")
@@ -484,26 +508,25 @@ function TrainEVPath()
 end
 
 function TrainEV()
-    if(isOpponentShiny() and HavePokeballs()) then
+
+    if(isOpponentShiny() and HavePokeballs() and (isCaptureList() or CatchPokemon) ) then
         return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendUsablePokemon() or sendAnyPokemon() or run()
-    elseif canChange then
-        return run() or sendUsablePokemon() or sendAnyPokemon()
-    elseif not (canChange and attack()) then
-        return fatal("No se puede atacar ni cambiar de pokemon")
-    elseif isCorrectEV() and CanAttack(1) then
+ 	elseif isCorrectEV() and CanAttack(1) then
         return attack()
+    elseif canChange then
+        return run() or attack() or sendUsablePokemon() or sendAnyPokemon() 
     elseif CanAttack(1) then
         return attack()
+    elseif not (canChange and attack()) then
+        return attack() or fatal("No se puede atacar ni cambiar de pokemon ni huir")  
     end
 end
 
 
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
+-------------------------------------------------------------------------
 ---------------------------Vulpix Catch--------------------------------
--------------------------------------------------------------------------
--------------------------------------------------------------------------
--------------------------------------------------------------------------
 
 function VulpixHA() 
     if(isVulpixHA) then
@@ -528,6 +551,55 @@ function VulpixHA()
         Leveler()
     end
 end
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+--------------------------- Conseguir Items -----------------------------
+
+function CovetItemsPath()
+	if findPokemonWithCovet() then
+		if PokemonIndexCovet==1 then
+			if CanAttack(1) then
+	            if getMapName()==TargetMap then
+	                if HuntType=="Rect" then
+	                    return moveToRectangle(Coordenadas)
+	                elseif HuntType=="Grass" then
+	                    return moveToGrass()
+	                elseif HuntType=="Water" then
+	                    return moveToWater()
+	                end
+	            else
+	                log("... Buscando: "..TargetMap)
+	                return Pathfinder.moveTo(getMapName(), TargetMap)
+	            end  
+	        else
+	            log("... Buscando Pokecenter en: "..getMapName())
+	            return Pathfinder.useNearestPokecenter(getMapName())
+	        end
+		else
+			swapPokemon(1, PokemonIndexCovet)
+		end
+	else
+		return fatal("No se ha podido encontrar Pokemon con Covet")
+	end
+end
+
+function CovetItems()
+
+ 	if(isOpponentShiny() and HavePokeballs() or (CatchPokemon and isCaptureList())) then
+        return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendUsablePokemon() or sendAnyPokemon() or run()
+ 	elseif findPokemonWithCovet() and getActivePokemonNumber()==PokemonIndexCovet and CanUseCovet(PokemonIndexCovet) and getOpponentName()==PokemonTarget then
+ 		return useMove("Covet")
+	elseif canChange then
+		return run()
+    elseif CanAttack(1) then
+    	return attack()
+    else
+        return fatal("No se puede atacar ni cambiar de pokemon ni huir")  
+    end
+end
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
 -------------------------------------------------------------------------
 --------- Aprender u olvidar movimientos---------
 function onLearningMove(moveName, pokemonIndex)

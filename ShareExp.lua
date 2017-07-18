@@ -2,12 +2,13 @@ dofile "YiwoScript.lua"
 
 
 --TargetMap         = "Mt. Silver Lower Mountainside"
-TargetMap         = "Route 8"
+TargetMap         = "Cerulean City"
 HuntType          = "Grass"
 HPtoRetreat       = 20 
 PokemonHPCatch    = 50 
 TargetLvl         = 101
-PokemonSwap       = 5
+PokemonSwap       = 4
+CatchPokemon	  =false
 
 function onStart()
     ShareExpLog()
